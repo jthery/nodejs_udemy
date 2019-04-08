@@ -11,7 +11,7 @@ app.use((req, res, next) => {
     console.log('URL : ' + req.url) // chaque requete, il y aura un debug en console de l'url appelé pour chaque requete.
     next() //exécuter la fonction
 })
-
+// si on fait une recherche d'URL on peut constater dans notre terminal que c'est URL remonte.
 
 
 // '/api' c'est l'URL que l'on souhaite
