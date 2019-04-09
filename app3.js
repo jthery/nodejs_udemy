@@ -2,8 +2,7 @@
 
 const express = require('express')
 // instance de cette variable "express"
-const app = express()
-
+const app = express();
 
 // ajout de notre middlewares, voir la doc expressjs.com
 // "next" approporiement dit une variable, mais une fonction qu'on va utiliser pour dire que le traitement du middlewares est fini

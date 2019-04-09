@@ -5,6 +5,7 @@
   "main": "app.js",
   "dependencies": {
     "babel-register": "^6.26.0",
+    "body-parser": "^1.18.3",
     "express": "^4.16.4"
   },
   "devDependencies": {
@@ -12,7 +13,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app3.js"
+    "start": "nodemon app8.js"
   },
   "author": "",
   "license": "ISC"
