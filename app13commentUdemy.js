@@ -3,6 +3,7 @@ const express = require('express')
 const app = express();
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const config = require('./config'); // config.json qui contient notre root "/api/v1" et le port 8080
 
 const members = [{
         id: 1,
@@ -126,9 +127,9 @@ MembersRouter.route('/')
         }
     })
 
-app.use('/api/v1/members', MembersRouter)
+app.use(config.rootAPI+'members', MembersRouter)
 
-app.listen(8080, () => console.log('Started on port 8080'))
+app.listen(config.port, () => console.log('Started on port '+config.port))
 
 
 function getIndex(id) {
