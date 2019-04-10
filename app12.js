@@ -70,7 +70,7 @@ app.delete('/api/v1/members/:id', (req, res) => {
     if (typeof(index) == 'string') {
         res.json(error(index))
     } else {
-        members.splice(index, 1)
+        members.splice(index, 1) 
         res.json(success(members))
     }
 })
@@ -104,7 +104,7 @@ app.post('/api/v1/members', (req, res) => {
         } else { // notre partie de non erreur
 
             let member = { 
-                id: members.length + 1,
+                id: createID(), // fonction createID créer pour ajouter dans l'ordre nos membres, afin de régler le problème de la suppression qui mets les ID dans le désordre
                 name: req.body.name
             }
 
@@ -127,4 +127,8 @@ function getIndex(id) {
         return i
     }
     return 'wrong id'
+}
+
+function createID() {
+    return members[members.length-1].id + 1
 }
