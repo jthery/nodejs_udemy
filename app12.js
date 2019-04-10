@@ -37,7 +37,7 @@ app.get('/api/v1/members/:id', (req, res) => {
     }
 })
 
-// notre méthode http PUT qui va nous permettre de modifier un membre. Le code sera similaire 
+
 app.put('/api/v1/members/:id', (req, res) => {
 
     let index = getIndex(req.params.id);
@@ -45,23 +45,33 @@ app.put('/api/v1/members/:id', (req, res) => {
     if (typeof(index) == 'string') {
         res.json(error(index))
     } else {
-        // let member = members[index];
         let same = false;
         for(let i = 0; i < members.length; i ++) {
-            // si le nom est similaire et l'id est similaire 
             if(req.body.name == members[i].name && req.params.id != members[i].id) {
                 same = true
                 break
             }
         }
 
-        // if/else qui correspond à ma variable same.
         if (same) {
             res.json(error('same name')) 
         } else {
             members[index].name = req.body.name
             res.json(success(true))
         }
+    }
+})
+
+// méthode http DELETE qui va nous permettre de supprimer un membre, le code est similaire à notre app.get, c'est juste la réponse qui est différente.
+app.delete('/api/v1/members/:id', (req, res) => {
+    
+    let index = getIndex(req.params.id);
+
+    if (typeof(index) == 'string') {
+        res.json(error(index))
+    } else {
+        members.splice(index, 1)
+        res.json(success(members))
     }
 })
 
