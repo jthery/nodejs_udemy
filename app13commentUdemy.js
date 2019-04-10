@@ -1,11 +1,6 @@
-const {
-    success,
-    error
-} = require('functions')
-
+const {success, error} = require('functions')
 const express = require('express')
 const app = express();
-
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
@@ -23,7 +18,7 @@ const members = [{
     }
 ]
 
-// Variable déclarer via express pour la création de route
+
 let MembersRouter = express.Router()
 
 app.use(morgan('dev'))
@@ -32,9 +27,10 @@ app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-// création de notre route "/api/v1/members/:id" pour notre get/put/delete, et suppresion de notre "app" devant chaque méthode, car notre route prend le relais.
+
 MembersRouter.route('/:id')
 
+    // Récupère un membre avec son ID
     .get((req, res) => {
 
         let index = getIndex(req.params.id);
@@ -46,7 +42,7 @@ MembersRouter.route('/:id')
         }
     })
 
-
+    // Modifie un membre avec son ID
     .put((req, res) => {
 
         let index = getIndex(req.params.id);
@@ -71,7 +67,7 @@ MembersRouter.route('/:id')
         }
     })
 
-    // méthode http DELETE qui va nous permettre de supprimer un membre, le code est similaire à notre app.get, c'est juste la réponse qui est différente.
+    // Supprime un membre avec son ID
     .delete((req, res) => {
 
         let index = getIndex(req.params.id);
@@ -86,6 +82,7 @@ MembersRouter.route('/:id')
 
 MembersRouter.route('/')
 
+    // Récupère tous les membres 
     .get((req, res) => {
         if (req.query.max != undefined && req.query.max > 0) {
             res.json(success(members.slice(0, req.query.max)))
@@ -96,11 +93,11 @@ MembersRouter.route('/')
         }
     })
 
+    // Ajoute un membre
     .post((req, res) => {
 
         if (req.body.name) {
 
-            // notre partie de vérification
             let sameName = false
             for (let i = 0; i < members.length; i++) {
                 if (members[i].name == req.body.name) {
@@ -109,13 +106,13 @@ MembersRouter.route('/')
                 }
             }
 
-            // notre partie d'erreur
+    
             if (sameName) {
                 res.json(error('name already taken'))
-            } else { // notre partie de non erreur
+            } else { 
 
                 let member = {
-                    id: createID(), // fonction createID créer pour ajouter dans l'ordre nos membres, afin de régler le problème de la suppression qui mets les ID dans le désordre
+                    id: createID(),
                     name: req.body.name
                 }
 
